@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+// Struktur node untuk linked list
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Fungsi untuk menghitung jumlah elemen dalam linked list
+int hitungElemen(Node* head) {
+    int count = 0;
+    Node* current = head;
+    while (current != nullptr) {
+        count++;
+        current = current->next;
+    }
+    return count;
+}
+
+// Fungsi utama
+int main() {
+    // Membuat tiga node contoh
+    Node* head = new Node{1, nullptr};
+    head->next = new Node{2, nullptr};
+    head->next->next = new Node{3, nullptr};
+
+    // Hitung jumlah elemen
+    int jumlah = hitungElemen(head);
+
+    cout << "Jumlah elemen dalam linked list: " << jumlah << endl;
+
+    // Bebaskan memori
+    Node* temp;
+    while (head != nullptr) {
+        temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    return 0;
+}
