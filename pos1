@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+class BalikAngka {
+private:
+    int angka;
+
+public:
+    void setAngka(int n) {
+        angka = n;
+    }
+
+    // --- Cara Iteratif ---
+    void cetakIteratif() {
+        int temp = angka;
+        cout << "Hasil terbalik (iteratif): ";
+        while (temp > 0) {
+            cout << temp % 10;  // ambil digit terakhir
+            temp /= 10;         // buang digit terakhir
+        }
+        cout << endl;
+    }
+
+    // --- Cara Rekursif ---
+    void cetakRekursif(int n) {
+        if (n == 0)
+            return;
+        cout << n % 10;
+        cetakRekursif(n / 10); // panggil diri sendiri dengan sisa angka
+    }
+
+    void tampilRekursif() {
+        cout << "Hasil terbalik (rekursif): ";
+        cetakRekursif(angka);
+        cout << endl;
+    }
+};
+
+int main() {
+    BalikAngka obj;
+    int n;
+
+    cout << "Masukkan bilangan (maks 5 digit): ";
+    cin >> n;
+
+    obj.setAngka(n);
+    obj.cetakIteratif();
+    obj.tampilRekursif();
+
+    return 0;
+}
