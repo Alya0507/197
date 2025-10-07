@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+class Contoh {
+private:
+    int a;           // hanya bisa diakses di dalam class
+
+protected:
+    int b;           // bisa diakses oleh class turunan
+
+public:
+    int c;           // bisa diakses dari mana saja
+
+    void setData(int x, int y, int z) {
+        a = x;
+        b = y;
+        c = z;
+    }
+
+    void tampilkan() {
+        cout << "a = " << a << endl;
+        cout << "b = " << b << endl;
+        cout << "c = " << c << endl;
+    }
+};
+
+class Turunan : public Contoh {
+public:
+    void ubahProtected(int nilai) {
+        b = nilai; // boleh, karena b bersifat protected
+    }
+};
+
+int main() {
+    Turunan obj;
+    obj.setData(1, 2, 3);
+    obj.ubahProtected(10);
+    obj.c = 20; // boleh, karena public
+    obj.tampilkan();
+}
