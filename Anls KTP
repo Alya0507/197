@@ -1,0 +1,90 @@
+#include <iostream>
+#include <fstream>   // untuk file
+using namespace std;
+
+struct KTP {
+    string NIK;
+    string Nama;
+    string TempatLahir;
+    string TanggalLahir;
+    string JenisKelamin;
+    string Alamat;
+    int RT;
+    int RW;
+    string Kelurahan;
+    string Kecamatan;
+    string Agama;
+    string StatusPerkawinan;
+    string Pekerjaan;
+    string Kewarganegaraan;
+    string BerlakuHingga;
+};
+
+int main() {
+    KTP data[3];  // variabel untuk menampung 3 data KTP
+    ofstream file("data_ktp.txt");
+
+    if (!file) {
+        cout << "Gagal membuka file!" << endl;
+        return 1;
+    }
+
+    cout << "=== INPUT DATA KTP (3 Orang) ===" << endl;
+    for (int i = 0; i < 3; i++) {
+        cout << "\nData ke-" << i + 1 << endl;
+        cout << "NIK: ";
+        cin >> data[i].NIK;
+        cin.ignore(); // agar getline tidak terlewati
+        cout << "Nama: ";
+        getline(cin, data[i].Nama);
+        cout << "Tempat Lahir: ";
+        getline(cin, data[i].TempatLahir);
+        cout << "Tanggal Lahir (DD-MM-YYYY): ";
+        getline(cin, data[i].TanggalLahir);
+        cout << "Jenis Kelamin: ";
+        getline(cin, data[i].JenisKelamin);
+        cout << "Alamat: ";
+        getline(cin, data[i].Alamat);
+        cout << "RT: ";
+        cin >> data[i].RT;
+        cout << "RW: ";
+        cin >> data[i].RW;
+        cin.ignore();
+        cout << "Kelurahan: ";
+        getline(cin, data[i].Kelurahan);
+        cout << "Kecamatan: ";
+        getline(cin, data[i].Kecamatan);
+        cout << "Agama: ";
+        getline(cin, data[i].Agama);
+        cout << "Status Perkawinan: ";
+        getline(cin, data[i].StatusPerkawinan);
+        cout << "Pekerjaan: ";
+        getline(cin, data[i].Pekerjaan);
+        cout << "Kewarganegaraan: ";
+        getline(cin, data[i].Kewarganegaraan);
+        cout << "Berlaku Hingga: ";
+        getline(cin, data[i].BerlakuHingga);
+
+        // Tulis ke file
+        file << "=== Data KTP ke-" << i + 1 << " ===\n";
+        file << "NIK: " << data[i].NIK << endl;
+        file << "Nama: " << data[i].Nama << endl;
+        file << "Tempat/Tanggal Lahir: " << data[i].TempatLahir << ", " << data[i].TanggalLahir << endl;
+        file << "Jenis Kelamin: " << data[i].JenisKelamin << endl;
+        file << "Alamat: " << data[i].Alamat << endl;
+        file << "RT/RW: " << data[i].RT << "/" << data[i].RW << endl;
+        file << "Kelurahan: " << data[i].Kelurahan << endl;
+        file << "Kecamatan: " << data[i].Kecamatan << endl;
+        file << "Agama: " << data[i].Agama << endl;
+        file << "Status Perkawinan: " << data[i].StatusPerkawinan << endl;
+        file << "Pekerjaan: " << data[i].Pekerjaan << endl;
+        file << "Kewarganegaraan: " << data[i].Kewarganegaraan << endl;
+        file << "Berlaku Hingga: " << data[i].BerlakuHingga << endl;
+        file << "------------------------------------\n\n";
+    }
+
+    file.close();
+    cout << "\nData berhasil disimpan ke file 'data_ktp.txt'." << endl;
+
+    return 0;
+}
