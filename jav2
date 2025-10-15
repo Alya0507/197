@@ -1,0 +1,62 @@
+import java.util.Scanner;
+
+public class KalkulatorWhile {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int pilihan; // untuk menyimpan pilihan menu
+
+        do {
+            System.out.println("\n=== KALKULATOR SEDERHANA ===");
+            System.out.println("1. Penjumlahan (+)");
+            System.out.println("2. Pengurangan (-)");
+            System.out.println("3. Perkalian (×)");
+            System.out.println("4. Pembagian (÷)");
+            System.out.println("0. Keluar");
+            System.out.print("Pilih operasi (0-4): ");
+            pilihan = input.nextInt();
+
+            if (pilihan == 0) {
+                System.out.println("Terima kasih! Program selesai.");
+                break; // keluar dari loop
+            }
+
+            // Input dua angka
+            System.out.print("Masukkan angka pertama: ");
+            double angka1 = input.nextDouble();
+
+            System.out.print("Masukkan angka kedua: ");
+            double angka2 = input.nextDouble();
+
+            double hasil;
+
+            switch (pilihan) {
+                case 1:
+                    hasil = angka1 + angka2;
+                    System.out.println("Hasil penjumlahan: " + hasil);
+                    break;
+                case 2:
+                    hasil = angka1 - angka2;
+                    System.out.println("Hasil pengurangan: " + hasil);
+                    break;
+                case 3:
+                    hasil = angka1 * angka2;
+                    System.out.println("Hasil perkalian: " + hasil);
+                    break;
+                case 4:
+                    if (angka2 != 0) {
+                        hasil = angka1 / angka2;
+                        System.out.println("Hasil pembagian: " + hasil);
+                    } else {
+                        System.out.println("Error: Tidak bisa membagi dengan nol!");
+                    }
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid, coba lagi!");
+                    break;
+            }
+
+        } while (pilihan != 0); // ulang selama bukan 0
+
+        input.close();
+    }
+}
