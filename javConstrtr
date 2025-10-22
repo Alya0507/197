@@ -63,3 +63,28 @@ public class Main {
         dataktp.tampilKTP();
     }
 }
+
+//contoh lain
+class Menu {
+    String nama;
+    int harga;
+    
+    public Menu(String n, int h){
+        nama = n;
+        harga = h;
+    }
+    
+    void tampilMenu(){
+        System.out.println(nama);
+        System.out.println(harga);
+        
+    }
+    
+}
+public class Main {
+    public static void main(String[] args){
+        Menu tampil = new Menu("1. Ayam Goreng ", 12000);
+        
+        tampil.tampilMenu();
+    }
+}
