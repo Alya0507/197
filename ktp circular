@@ -169,3 +169,265 @@ int main() {
 
     return 0;
 }
+
+// hapus di belakang
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct KTP {
+    string nik;
+    string nama;
+    string alamat;
+    KTP* next;
+};
+
+class CircularLinkedList {
+private:
+    KTP* head;
+
+public:
+    CircularLinkedList() {
+        head = nullptr;
+    }
+
+    // Tambah data di belakang
+    void tambahData() {
+        KTP* baru = new KTP;
+        cout << "\nMasukkan NIK: ";
+        getline(cin >> ws, baru->nik);
+        cout << "Masukkan Nama: ";
+        getline(cin, baru->nama);
+        cout << "Masukkan Alamat: ";
+        getline(cin, baru->alamat);
+
+        if (head == nullptr) {
+            head = baru;
+            baru->next = head;
+        } else {
+            KTP* temp = head;
+            while (temp->next != head)
+                temp = temp->next;
+            temp->next = baru;
+            baru->next = head;
+        }
+        cout << "\n✅ Data berhasil ditambahkan!\n";
+    }
+
+    // Tampilkan semua data
+    void tampilkanData() {
+        if (head == nullptr) {
+            cout << "\n⚠️ Data masih kosong.\n";
+            return;
+        }
+
+        cout << "\n===== DAFTAR DATA KTP =====\n";
+        KTP* temp = head;
+        int i = 1;
+        do {
+            cout << "Data ke-" << i++ << endl;
+            cout << "NIK     : " << temp->nik << endl;
+            cout << "Nama    : " << temp->nama << endl;
+            cout << "Alamat  : " << temp->alamat << endl;
+            cout << "---------------------------\n";
+            temp = temp->next;
+        } while (temp != head);
+    }
+
+    // Hapus data di belakang
+    void hapusBelakang() {
+        if (head == nullptr) {
+            cout << "\n⚠️ Data masih kosong, tidak bisa dihapus.\n";
+            return;
+        }
+
+        // Jika hanya 1 node
+        if (head->next == head) {
+            delete head;
+            head = nullptr;
+            cout << "\n✅ Data terakhir berhasil dihapus (list kosong sekarang).\n";
+            return;
+        }
+
+        // Jika lebih dari 1 node
+        KTP* temp = head;
+        KTP* prev = nullptr;
+
+        while (temp->next != head) {
+            prev = temp;
+            temp = temp->next;
+        }
+
+        prev->next = head; // node sebelum terakhir menunjuk ke head
+        delete temp;
+
+        cout << "\n✅ Data di belakang berhasil dihapus!\n";
+    }
+};
+
+int main() {
+    CircularLinkedList daftarKTP;
+    int pilihan;
+
+    do {
+        cout << "\n===== MENU DATA KTP =====\n";
+        cout << "1. Tambah Data\n";
+        cout << "2. Tampilkan Data\n";
+        cout << "3. Hapus Data di Belakang\n";
+        cout << "4. Keluar\n";
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+        cin.ignore();
+
+        switch (pilihan) {
+            case 1:
+                daftarKTP.tambahData();
+                break;
+            case 2:
+                daftarKTP.tampilkanData();
+                break;
+            case 3:
+                daftarKTP.hapusBelakang();
+                break;
+            case 4:
+                cout << "\nTerima kasih!\n";
+                break;
+            default:
+                cout << "\nPilihan tidak valid!\n";
+        }
+    } while (pilihan != 4);
+
+    return 0;
+}
+
+//hapus dpn
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct KTP {
+    string nik;
+    string nama;
+    string alamat;
+    KTP* next;
+};
+
+class CircularLinkedList {
+private:
+    KTP* head;
+
+public:
+    CircularLinkedList() {
+        head = nullptr;
+    }
+
+    // Tambah data di belakang
+    void tambahData() {
+        KTP* baru = new KTP;
+        cout << "\nMasukkan NIK: ";
+        getline(cin >> ws, baru->nik);
+        cout << "Masukkan Nama: ";
+        getline(cin, baru->nama);
+        cout << "Masukkan Alamat: ";
+        getline(cin, baru->alamat);
+
+        if (head == nullptr) {
+            head = baru;
+            baru->next = head; // Circular
+        } else {
+            KTP* temp = head;
+            while (temp->next != head) {
+                temp = temp->next;
+            }
+            temp->next = baru;
+            baru->next = head; // circular tetap
+        }
+
+        cout << "\n✅ Data berhasil ditambahkan!\n";
+    }
+
+    // Tampilkan semua data
+    void tampilkanData() {
+        if (head == nullptr) {
+            cout << "\n⚠️ Data masih kosong.\n";
+            return;
+        }
+
+        cout << "\n===== DAFTAR DATA KTP =====\n";
+        KTP* temp = head;
+        int i = 1;
+        do {
+            cout << "Data ke-" << i++ << endl;
+            cout << "NIK     : " << temp->nik << endl;
+            cout << "Nama    : " << temp->nama << endl;
+            cout << "Alamat  : " << temp->alamat << endl;
+            cout << "---------------------------\n";
+            temp = temp->next;
+        } while (temp != head);
+    }
+
+    // Hapus data di depan
+    void hapusDepan() {
+        if (head == nullptr) {
+            cout << "\n⚠️ Data masih kosong, tidak bisa dihapus.\n";
+            return;
+        }
+
+        // Jika hanya satu data
+        if (head->next == head) {
+            delete head;
+            head = nullptr;
+            cout << "\n✅ Data depan berhasil dihapus (list sekarang kosong).\n";
+            return;
+        }
+
+        // Jika lebih dari satu data
+        KTP* hapus = head;
+        KTP* tail = head;
+
+        // Cari node terakhir
+        while (tail->next != head)
+            tail = tail->next;
+
+        head = head->next;
+        tail->next = head;
+        delete hapus;
+
+        cout << "\n✅ Data di depan berhasil dihapus!\n";
+    }
+};
+
+int main() {
+    CircularLinkedList daftarKTP;
+    int pilihan;
+
+    do {
+        cout << "\n===== MENU DATA KTP =====\n";
+        cout << "1. Tambah Data\n";
+        cout << "2. Tampilkan Data\n";
+        cout << "3. Hapus Data di Depan\n";
+        cout << "4. Keluar\n";
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+        cin.ignore();
+
+        switch (pilihan) {
+            case 1:
+                daftarKTP.tambahData();
+                break;
+            case 2:
+                daftarKTP.tampilkanData();
+                break;
+            case 3:
+                daftarKTP.hapusDepan();
+                break;
+            case 4:
+                cout << "\nTerima kasih!\n";
+                break;
+            default:
+                cout << "\nPilihan tidak valid!\n";
+        }
+    } while (pilihan != 4);
+
+    return 0;
+}
