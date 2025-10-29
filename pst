@@ -1,0 +1,100 @@
+public class Animal{
+    String nama;
+    int umur;
+
+    void makan(){
+        System.out.println("\n=== Aktivasi animal ===");
+        System.out.println("Nama Hewan : " + nama);
+        System.out.println("umur Hewan : " + umur);
+        System.out.println("Makan : Wiskan");
+    }
+
+}
+
+
+public class Cat extends Animal{
+    public void rawwrrr(){
+        System.out.println(nama + " Sedang Me-rawrrrr\n");
+    }
+
+    @Override
+    public void makan() {
+        System.out.println("\n=== Aktivasi animal ===");
+        System.out.println("Nama Hewan : " + nama);
+        System.out.println("Umur Hewan : " + umur);
+        System.out.println("Makan : Wiskas");
+    }
+
+}
+
+public class Dog extends Animal{
+
+    public void mengonggong(){
+        System.out.println(nama + " Sedang menggongong\n");
+    }
+
+    @Override
+    void makan() {
+        System.out.println("\n=== Aktivasi animal ===");
+        System.out.println("Nama Hewan : " + nama);
+        System.out.println("Umur Hewan : " + umur);
+        System.out.println("Makan : Tulang");
+    }
+}
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        boolean active = true;
+        do {
+            System.out.println("Pilih Opsi ");
+            System.out.println("1. Ubah Nama Kucing");
+            System.out.println("2. Ubah Nama Anjing");
+            System.out.println("3. Keluar");
+            System.out.print("Masukan Pilihan : ");
+            int pilih = input.nextInt();
+
+            switch (pilih){
+                case 1:
+                    input.nextLine();
+                    System.out.println("=== Input Data Kucing ===");
+                    System.out.print("Masukan nama Kuching : ");
+                    String namaKucing = input.nextLine();
+                    System.out.print("Masukan umur kuching");
+                    int umurkuching = input.nextInt();
+
+                    Cat kucing = new Cat();
+                    kucing.nama = namaKucing;
+                    kucing.umur = umurkuching;
+                    kucing.makan();
+                    kucing.rawwrrr();
+                    break;
+                case 2:
+                    input.nextLine();
+                    System.out.println("=== Input Data Anjing ===");
+                    System.out.print("Masukan nama Anjhing : ");
+                    String namaAnjing = input.nextLine();
+                    System.out.print("Masukan umur Anjhing");
+                    int umuranjingg = input.nextInt();
+
+                    Dog anjing = new Dog();
+                    anjing.nama = namaAnjing;
+                    anjing.umur = umuranjingg;
+                    anjing.makan();
+                    anjing.mengonggong();
+                   break;
+                case 3:
+                    System.out.println("Keluar App huuu");
+                    active = false;
+                    break;
+                default:
+                    System.out.println("Menu belum tersedia");
+            }
+            System.out.println("\n");
+        }while (active == true);
+        input.close();
+    }
+
+}
