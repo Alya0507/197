@@ -1,0 +1,25 @@
+CREATE DATABASE rumah_makan_padang;
+
+USE rumah_makan_padang;
+
+CREATE TABLE pelanggan (
+    id_pelanggan INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    no_hp VARCHAR(15) NOT NULL,
+    alamat VARCHAR(255)
+);
+
+CREATE TABLE pesanan (
+    id_pesanan INT AUTO_INCREMENT PRIMARY KEY,
+    id_pelanggan INT NOT NULL,
+    tanggal_pesan DATE NOT NULL,
+    total_harga INT NOT NULL,
+    FOREIGN KEY (id_pelanggan) REFERENCES pelanggan(id_pelanggan)
+);
+
+SHOW TABLES;
+
+DESC pelanggan;
+DESC pesanan;
+
+exit
