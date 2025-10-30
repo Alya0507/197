@@ -1,0 +1,355 @@
+
+Setting environment for using XAMPP for Windows.
+Praktikan-31@BASDAT31 c:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 23
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| akademik           |
+| information_schema |
+| laprak4_pbo        |
+| mysql              |
+| performance_schema |
+| perpus             |
+| perpustakaan       |
+| phpmyadmin         |
+| test               |
+| universitas        |
++--------------------+
+10 rows in set (0.000 sec)
+
+MariaDB [(none)]> use laprak4_pbo;
+Database changed
+MariaDB [laprak4_pbo]> show tables;
+Empty set (0.000 sec)
+
+MariaDB [laprak4_pbo]> CREATE TABLE produk(
+    -> id_produk varchar(15) not null primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [laprak4_pbo]> CREATE TABLE produk(
+    -> id_produk varchar(15) not null primary key,
+    -> nama_produk varchar(50),
+    -> harga int);
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [laprak4_pbo]> show tables;
++-----------------------+
+| Tables_in_laprak4_pbo |
++-----------------------+
+| produk                |
++-----------------------+
+1 row in set (0.000 sec)
+
+MariaDB [laprak4_pbo]> desc tables;
+ERROR 1146 (42S02): Table 'laprak4_pbo.tables' doesn't exist
+MariaDB [laprak4_pbo]> desc produk;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| id_produk   | varchar(15) | NO   | PRI | NULL    |       |
+| nama_produk | varchar(50) | YES  |     | NULL    |       |
+| harga       | int(11)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.016 sec)
+
+MariaDB [laprak4_pbo]> CREATE TABLE pelanggan(
+    -> id_pelanggan varchar(10) not null primary key,
+    -> nama_pelanggan varchar(50),
+    -> alamat varchar(100));
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [laprak4_pbo]> CREATE TABLE transaksi(
+    -> id_transaksi varchar(10) not null primary key,
+    -> id_pelanggan varchar(10),
+    -> id_produk varchar(15),
+    -> tgl_transaksi varchar(50));
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [laprak4_pbo]> show tables;
++-----------------------+
+| Tables_in_laprak4_pbo |
++-----------------------+
+| pelanggan             |
+| produk                |
+| transaksi             |
++-----------------------+
+3 rows in set (0.000 sec)
+
+MariaDB [laprak4_pbo]> desc pelanggan;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id_pelanggan   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_pelanggan | varchar(50)  | YES  |     | NULL    |       |
+| alamat         | varchar(100) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+3 rows in set (0.015 sec)
+
+MariaDB [laprak4_pbo]> desc transaksi;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id_transaksi  | varchar(10) | NO   | PRI | NULL    |       |
+| id_pelanggan  | varchar(10) | YES  |     | NULL    |       |
+| id_produk     | varchar(15) | YES  |     | NULL    |       |
+| tgl_transaksi | varchar(50) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.016 sec)
+
+MariaDB [laprak4_pbo]> desc produk;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| id_produk   | varchar(15) | NO   | PRI | NULL    |       |
+| nama_produk | varchar(50) | YES  |     | NULL    |       |
+| harga       | int(11)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.016 sec)
+
+MariaDB [laprak4_pbo]> desc pelanggan;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id_pelanggan   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_pelanggan | varchar(50)  | YES  |     | NULL    |       |
+| alamat         | varchar(100) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+3 rows in set (0.017 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE pelanggan ADD kategori_produk varchar(50) AFTER nama_pelanggan;
+Query OK, 0 rows affected (0.009 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> desc pelanggan;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| id_pelanggan    | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_pelanggan  | varchar(50)  | YES  |     | NULL    |       |
+| kategori_produk | varchar(50)  | YES  |     | NULL    |       |
+| alamat          | varchar(100) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.017 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE pelanggan CHANGE kategori_produk no_telpn varchar(15);
+Query OK, 0 rows affected (0.030 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> desc pelanggan;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id_pelanggan   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_pelanggan | varchar(50)  | YES  |     | NULL    |       |
+| no_telpn       | varchar(15)  | YES  |     | NULL    |       |
+| alamat         | varchar(100) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.016 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE pelanggan RENAME TO pembeli;
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [laprak4_pbo]> show tables;
++-----------------------+
+| Tables_in_laprak4_pbo |
++-----------------------+
+| pembeli               |
+| produk                |
+| transaksi             |
++-----------------------+
+3 rows in set (0.000 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE pembeli DROP no_telp;
+ERROR 1091 (42000): Can't DROP COLUMN `no_telp`; check that it exists
+MariaDB [laprak4_pbo]> ALTER TABLE pembeli DROP no_telp;
+ERROR 1091 (42000): Can't DROP COLUMN `no_telp`; check that it exists
+MariaDB [laprak4_pbo]> ALTER TABLE pembeli DROP no_telpn;
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> DESC PEMBELI
+    -> desc pembeli;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc pembeli' at line 2
+MariaDB [laprak4_pbo]> desc pembeli;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id_pelanggan   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_pelanggan | varchar(50)  | YES  |     | NULL    |       |
+| alamat         | varchar(100) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+3 rows in set (0.017 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE pembeli DROP primary key id_pelanggan;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'id_pelanggan' at line 1
+MariaDB [laprak4_pbo]> ALTER TABLE pembeli DROP primary key (id_pelanggan);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(id_pelanggan)' at line 1
+MariaDB [laprak4_pbo]> ALTER TABLE pembeli DROP primary key;
+Query OK, 0 rows affected (0.023 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> ALTER TABLE pembeli ADD primary key (id_pelanggan);
+Query OK, 0 rows affected (0.030 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> desc pembeli;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id_pelanggan   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_pelanggan | varchar(50)  | YES  |     | NULL    |       |
+| alamat         | varchar(100) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+3 rows in set (0.016 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE transaksi ADD foreign key (id_pelanggan) REFERENCES pembeli(id_pelanggan);
+Query OK, 0 rows affected (0.045 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> desc pembeli;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id_pelanggan   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_pelanggan | varchar(50)  | YES  |     | NULL    |       |
+| alamat         | varchar(100) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+3 rows in set (0.015 sec)
+
+MariaDB [laprak4_pbo]> desc transaksi;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id_transaksi  | varchar(10) | NO   | PRI | NULL    |       |
+| id_pelanggan  | varchar(10) | YES  | MUL | NULL    |       |
+| id_produk     | varchar(15) | YES  |     | NULL    |       |
+| tgl_transaksi | varchar(50) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.015 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE transaksi ADD foreign key (id_produk) REFERENCES produk(id_pelanggan);
+ERROR 1005 (HY000): Can't create table `laprak4_pbo`.`transaksi` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [laprak4_pbo]> ALTER TABLE transaksi ADD foreign key (id_produk) REFERENCES produk(id_produk);
+Query OK, 0 rows affected (0.042 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> desc transaksi;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id_transaksi  | varchar(10) | NO   | PRI | NULL    |       |
+| id_pelanggan  | varchar(10) | YES  | MUL | NULL    |       |
+| id_produk     | varchar(15) | YES  | MUL | NULL    |       |
+| tgl_transaksi | varchar(50) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.012 sec)
+
+MariaDB [laprak4_pbo]> show CREATE TABLE transaksi;
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| transaksi | CREATE TABLE `transaksi` (
+  `id_transaksi` varchar(10) NOT NULL,
+  `id_pelanggan` varchar(10) DEFAULT NULL,
+  `id_produk` varchar(15) DEFAULT NULL,
+  `tgl_transaksi` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_transaksi`),
+  KEY `id_pelanggan` (`id_pelanggan`),
+  KEY `id_produk` (`id_produk`),
+  CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_pelanggan`) REFERENCES `pembeli` (`id_pelanggan`),
+  CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE transaksi DROP foreign key transaksi_ibfk_1;
+Query OK, 0 rows affected (0.004 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> desc transaksi;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id_transaksi  | varchar(10) | NO   | PRI | NULL    |       |
+| id_pelanggan  | varchar(10) | YES  | MUL | NULL    |       |
+| id_produk     | varchar(15) | YES  | MUL | NULL    |       |
+| tgl_transaksi | varchar(50) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.013 sec)
+
+MariaDB [laprak4_pbo]> show CREATE TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [laprak4_pbo]> show CREATE TABLE transaksi;
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| transaksi | CREATE TABLE `transaksi` (
+  `id_transaksi` varchar(10) NOT NULL,
+  `id_pelanggan` varchar(10) DEFAULT NULL,
+  `id_produk` varchar(15) DEFAULT NULL,
+  `tgl_transaksi` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_transaksi`),
+  KEY `id_pelanggan` (`id_pelanggan`),
+  KEY `id_produk` (`id_produk`),
+  CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [laprak4_pbo]> desc transaksi;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id_transaksi  | varchar(10) | NO   | PRI | NULL    |       |
+| id_pelanggan  | varchar(10) | YES  | MUL | NULL    |       |
+| id_produk     | varchar(15) | YES  | MUL | NULL    |       |
+| tgl_transaksi | varchar(50) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.017 sec)
+
+MariaDB [laprak4_pbo]> ALTER TABLE transaksi DROP foreign key transaksi_ibfk_2;
+Query OK, 0 rows affected (0.007 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [laprak4_pbo]> show CREATE TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [laprak4_pbo]> show tables;
++-----------------------+
+| Tables_in_laprak4_pbo |
++-----------------------+
+| pembeli               |
+| produk                |
+| transaksi             |
++-----------------------+
+3 rows in set (0.000 sec)
+
+MariaDB [laprak4_pbo]> show CREATE TABLES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'TABLES' at line 1
+MariaDB [laprak4_pbo]> show CREATE TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [laprak4_pbo]> show CREATE TABLE transaksi;
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                               |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| transaksi | CREATE TABLE `transaksi` (
+  `id_transaksi` varchar(10) NOT NULL,
+  `id_pelanggan` varchar(10) DEFAULT NULL,
+  `id_produk` varchar(15) DEFAULT NULL,
+  `tgl_transaksi` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_transaksi`),
+  KEY `id_pelanggan` (`id_pelanggan`),
+  KEY `id_produk` (`id_produk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [laprak4_pbo]>
