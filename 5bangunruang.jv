@@ -134,3 +134,132 @@ public class Main {
         System.out.println("Luas persegi panjang (5x3)   : " + bd.hitungLuas(5, 3));
     }
 }
+
+
+DINAMISSS
+import java.util.Scanner;
+
+class BangunDatar {
+    public double hitungLuas() { return 0; }
+    public double hitungKeliling() { return 0; }
+
+    public void info() {
+        System.out.println("Ini adalah bangun datar.");
+    }
+
+    public void info(String nama) {
+        System.out.println("Bangun datar ini adalah " + nama);
+    }
+}
+
+class Persegi extends BangunDatar {
+    double sisi;
+    Persegi(double sisi) { this.sisi = sisi; }
+
+    @Override
+    public double hitungLuas() { return sisi * sisi; }
+    @Override
+    public double hitungKeliling() { return 4 * sisi; }
+}
+
+class PersegiPanjang extends BangunDatar {
+    double panjang, lebar;
+    PersegiPanjang(double p, double l) { panjang = p; lebar = l; }
+
+    @Override
+    public double hitungLuas() { return panjang * lebar; }
+    @Override
+    public double hitungKeliling() { return 2 * (panjang + lebar); }
+}
+
+class Segitiga extends BangunDatar {
+    double alas, tinggi, sisiA, sisiB, sisiC;
+    Segitiga(double a, double t, double A, double B, double C) {
+        alas = a; tinggi = t; sisiA = A; sisiB = B; sisiC = C;
+    }
+
+    @Override
+    public double hitungLuas() { return 0.5 * alas * tinggi; }
+    @Override
+    public double hitungKeliling() { return sisiA + sisiB + sisiC; }
+}
+
+class Lingkaran extends BangunDatar {
+    double r;
+    Lingkaran(double r) { this.r = r; }
+
+    @Override
+    public double hitungLuas() { return Math.PI * r * r; }
+    @Override
+    public double hitungKeliling() { return 2 * Math.PI * r; }
+}
+
+public class MainBangunLoop {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int pilih;
+        
+        do {
+            System.out.println("\n=== MENU HITUNG BANGUN DATAR ===");
+            System.out.println("1. Persegi");
+            System.out.println("2. Persegi Panjang");
+            System.out.println("3. Segitiga");
+            System.out.println("4. Lingkaran");
+            System.out.println("0. Keluar");
+            System.out.print("Pilih: ");
+            pilih = input.nextInt();
+
+            BangunDatar bd = null;
+
+            switch (pilih) {
+                case 1:
+                    System.out.print("Masukkan sisi: ");
+                    double sisi = input.nextDouble();
+                    bd = new Persegi(sisi);
+                    bd.info("Persegi");
+                    break;
+                case 2:
+                    System.out.print("Masukkan panjang: ");
+                    double p = input.nextDouble();
+                    System.out.print("Masukkan lebar: ");
+                    double l = input.nextDouble();
+                    bd = new PersegiPanjang(p, l);
+                    bd.info("Persegi Panjang");
+                    break;
+                case 3:
+                    System.out.print("Masukkan alas: ");
+                    double a = input.nextDouble();
+                    System.out.print("Masukkan tinggi: ");
+                    double t = input.nextDouble();
+                    System.out.print("Masukkan sisi A: ");
+                    double sA = input.nextDouble();
+                    System.out.print("Masukkan sisi B: ");
+                    double sB = input.nextDouble();
+                    System.out.print("Masukkan sisi C: ");
+                    double sC = input.nextDouble();
+                    bd = new Segitiga(a, t, sA, sB, sC);
+                    bd.info("Segitiga");
+                    break;
+                case 4:
+                    System.out.print("Masukkan jari-jari: ");
+                    double r = input.nextDouble();
+                    bd = new Lingkaran(r);
+                    bd.info("Lingkaran");
+                    break;
+                case 0:
+                    System.out.println("Keluar dari program...");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid!");
+            }
+
+            if (bd != null) {
+                System.out.println("Luas: " + bd.hitungLuas());
+                System.out.println("Keliling: " + bd.hitungKeliling());
+            }
+
+        } while (pilih != 0);
+
+        input.close();
+    }
+}
