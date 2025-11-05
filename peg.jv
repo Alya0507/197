@@ -1,0 +1,235 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("=== Program Data Pegawai ===");
+        System.out.println("1. Pegawai Tetap");
+        System.out.println("2. Pegawai Harian");
+        System.out.print("Pilih jenis pegawai (1/2): ");
+        System.out.println("Keluar");
+        int pilihan = input.nextInt();
+        input.nextLine();
+
+
+        switch (pilihan) {
+            case 1:
+                System.out.println("\n=== Input Data Pegawai Tetap ===");
+                System.out.print("Nama: ");
+                String namaTetap = input.nextLine();
+                System.out.print("NIP: ");
+                String nipTetap = input.nextLine();
+                System.out.print("Gaji Pokok: ");
+                double gajiPokok = input.nextDouble();
+                System.out.print("Tunjangan: ");
+                double tunjangan = input.nextDouble();
+
+                PegawaiTetap pegawaiTetap = new PegawaiTetap(namaTetap, nipTetap, gajiPokok, tunjangan);
+                System.out.println("\n=== Data Pegawai Tetap ===");
+                pegawaiTetap.tampilkanData();
+                break;
+
+            case 2:
+                System.out.println("\n=== Input Data Pegawai Harian ===");
+                System.out.print("Nama: ");
+                String namaHarian = input.nextLine();
+                System.out.print("NIP: ");
+                String nipHarian = input.nextLine();
+                System.out.print("Upah per jam: ");
+                double upahPerJam = input.nextDouble();
+                System.out.print("Jumlah jam kerja: ");
+                int jamKerja = input.nextInt();
+
+                PegawaiHarian pegawaiHarian = new PegawaiHarian(namaHarian, nipHarian, upahPerJam, jamKerja);
+                System.out.println("\n=== Data Pegawai Harian ===");
+                pegawaiHarian.tampilkanData();
+                break;
+
+            default:
+                System.out.println("Pilihan tidak valid!");
+        }
+
+        input.close();
+    }
+}
+public class PegawaiTetap extends Pegawai{
+    double gajiPokok;
+    double tunjangan;
+
+    public PegawaiTetap(String namaPegawai, String nipPegawai, double gajiPokok, double tunjangan) {
+        super(namaPegawai, nipPegawai);
+        this.gajiPokok = gajiPokok;
+        this.tunjangan = tunjangan;
+    }
+
+    public double hitungGaji(){
+        return gajiPokok + tunjangan;
+    }
+
+    @Override
+    public void tampilkanData() {
+        super.tampilkanData();
+        System.out.println("Status : Pegawai Tetap");
+        System.out.println("Gaji Anda : " + hitungGaji());
+    }
+}
+public class PegawaiHarian extends Pegawai{
+
+    double upahPerjam;
+    int jam_kerja;
+
+    double hasilkerja;
+
+    double bonus = 50000;
+
+    public PegawaiHarian(String namaPegawai, String nipPegawai, double upahPerjam, int jam_kerja) {
+        super(namaPegawai, nipPegawai);
+        this.upahPerjam = upahPerjam;
+        this.jam_kerja = jam_kerja;
+    }
+
+    public double hitung_UpahHarian(){
+        if(jam_kerja > 8 ){
+            hasilkerja = upahPerjam * jam_kerja + bonus;
+        }else{
+            hasilkerja = upahPerjam * jam_kerja;
+        }
+        return hasilkerja;
+    }
+
+    @Override
+    public void tampilkanData() {
+        super.tampilkanData();
+        if(jam_kerja> 8){
+            System.out.println("Status Pegawai : Pegawai Harian");
+            System.out.println("Total upah : " + hitung_UpahHarian());
+            System.out.println("Bonus anda : " + bonus);
+        }else {
+            System.out.println("Status Pegawai : Pegawai Harian");
+            System.out.println("Total upah : " + hitung_UpahHarian());
+            System.out.println("Anda tidak ada bonus");
+        }
+
+    }
+}
+public class Pegawai {
+    String nama;
+    String nip;
+
+    public Pegawai(String namaPegawai, String nipPegawai) {
+        this.nama = namaPegawai;
+        this.nip = nipPegawai;
+    }
+
+    public void tampilkanData(){
+        System.out.println("Nama Pegawai : " + nama);
+        System.out.println("NIP : " + nip);
+    }
+
+}
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("=== SISTEM KASIR TOKO ===");
+        System.out.println("Diskon: Pakaian 50% (>150rb) / 30% (<150rb) | Buku 10%");
+        System.out.println();
+
+        System.out.println("Pilih jenis produk:");
+        System.out.println("1. Pakaian");
+        System.out.println("2. Buku");
+        System.out.print("Pilihan: ");
+        int pilihan = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Nama produk: ");
+        String nama = input.nextLine();
+
+        System.out.print("Harga satuan: ");
+        double harga = input.nextDouble();
+
+        System.out.print("Jumlah beli: ");
+        int jumlahBeli = input.nextInt();
+
+        double totalHarga = harga * jumlahBeli;
+        double hargaSetelahDiskon;
+
+        if (pilihan == 1) {
+            Pakaian pakaian = new Pakaian(nama, harga);
+            hargaSetelahDiskon = pakaian.hitungDiskon(totalHarga);
+            pakaian.tampilkanDataDiskon();
+        } else {
+            Buku buku = new Buku(nama, harga);
+            hargaSetelahDiskon = buku.hitungDiskon(totalHarga);
+            buku.tampilkanDataDiskon();
+        }
+
+        System.out.println("Total harga sebelum diskon: Rp " + totalHarga);
+        System.out.println("Total harga setelah diskon: Rp " + hargaSetelahDiskon);
+        System.out.println("=== Terima kasih telah berbelanja ===");
+    }
+}
+public class Produk {
+    String nama;
+    double harga;
+
+    public Produk(String nama, double harga) {
+        this.nama = nama;
+        this.harga = harga;
+    }
+
+    // Method dasar (akan dioverride oleh subclass)
+    public double hitungDiskon(double totalHarga) {
+        return totalHarga; // default: tidak ada diskon
+    }
+}
+public class Buku extends Produk {
+    double jmlHarga;
+
+    public Buku(String nama, double harga) {
+        super(nama, harga);
+    }
+
+    @Override
+    public double hitungDiskon(double jumlahHarga) {
+        jmlHarga = jumlahHarga * 0.9; // diskon 10%
+        return jmlHarga;
+    }
+
+    public void tampilkanDataDiskon() {
+        System.out.println("\n--- Detail Produk ---");
+        System.out.println("Nama: " + nama);
+        System.out.println("Harga asli: Rp " + harga);
+        System.out.println("Harga bayar (setelah diskon): Rp " + jmlHarga);
+    }
+}
+import java.sql.SQLOutput;
+
+public class Pakaian extends Produk {
+    double jmlHarga;
+
+    public Pakaian(String nama, double harga) {
+        super(nama, harga);
+    }
+    
+    @Override
+    public double hitungDiskon(double jumlahHarga) {
+        if (jumlahHarga > 150000) {
+            jmlHarga = jumlahHarga * 0.5;
+        } else {
+            jmlHarga = jumlahHarga * 0.7;
+        }
+        return jmlHarga;
+    }
+
+    public void tampilkanDataDiskon() {
+        System.out.println("\n--- Detail Produk ---");
+        System.out.println("Nama: " + nama);
+        System.out.println("Harga asli: Rp " + harga);
+        System.out.println("Harga bayar (setelah diskon): Rp " + jmlHarga);
+
+    }
+}
