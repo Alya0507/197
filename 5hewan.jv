@@ -110,3 +110,83 @@ public class Main {
         k.makan("ikan tuna", 2);         // versi dengan dua parameter
     }
 }
+
+
+DINAMISS
+import java.util.Scanner;
+
+class Hewan {
+    public void bersuara() {
+        System.out.println("Hewan bersuara...");
+    }
+
+    public void bersuara(String waktu) {
+        System.out.println("Hewan bersuara di waktu " + waktu);
+    }
+}
+
+class Kucing extends Hewan {
+    @Override
+    public void bersuara() {
+        System.out.println("Kucing: Meong~");
+    }
+}
+
+class Anjing extends Hewan {
+    @Override
+    public void bersuara() {
+        System.out.println("Anjing: Guk guk!");
+    }
+}
+
+class Burung extends Hewan {
+    @Override
+    public void bersuara() {
+        System.out.println("Burung: Cuit cuit!");
+    }
+}
+
+public class MainHewanLoop {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int pilih;
+
+        do {
+            System.out.println("\n=== PROGRAM SUARA HEWAN ===");
+            System.out.println("1. Kucing");
+            System.out.println("2. Anjing");
+            System.out.println("3. Burung");
+            System.out.println("0. Keluar");
+            System.out.print("Pilih hewan: ");
+            pilih = input.nextInt();
+
+            Hewan h = null;
+
+            switch (pilih) {
+                case 1:
+                    h = new Kucing();
+                    break;
+                case 2:
+                    h = new Anjing();
+                    break;
+                case 3:
+                    h = new Burung();
+                    break;
+                case 0:
+                    System.out.println("Keluar dari program...");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid!");
+            }
+
+            if (h != null) {
+                h.bersuara(); // overriding
+                h.bersuara("pagi hari"); // overloading
+            }
+
+        } while (pilih != 0);
+
+        input.close();
+    }
+}
+
