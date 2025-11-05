@@ -1,0 +1,112 @@
+// Superclass (Induk)
+class Hewan {
+    String nama;
+
+    Hewan(String nama) {
+        this.nama = nama;
+    }
+
+    // Method umum (akan di-override)
+    void suara() {
+        System.out.println(nama + " bersuara...");
+    }
+
+    void bergerak() {
+        System.out.println(nama + " bergerak dengan cara umum.");
+    }
+
+    // Method overloading (nama sama, parameter berbeda)
+    void makan() {
+        System.out.println(nama + " sedang makan makanan umum.");
+    }
+
+    void makan(String makanan) {
+        System.out.println(nama + " sedang makan " + makanan + ".");
+    }
+}
+
+// Subclass Kucing
+class Kucing extends Hewan {
+    Kucing(String nama) {
+        super(nama);
+    }
+
+    // Overriding
+    @Override
+    void suara() {
+        System.out.println(nama + " mengeong: Meong!");
+    }
+
+    @Override
+    void bergerak() {
+        System.out.println(nama + " berjalan dengan empat kaki.");
+    }
+
+    // Overloading tambahan
+    void makan(String makanan, int jumlah) {
+        System.out.println(nama + " makan " + jumlah + " porsi " + makanan + ".");
+    }
+}
+
+// Subclass Burung
+class Burung extends Hewan {
+    Burung(String nama) {
+        super(nama);
+    }
+
+    @Override
+    void suara() {
+        System.out.println(nama + " berkicau: Cuit cuit!");
+    }
+
+    @Override
+    void bergerak() {
+        System.out.println(nama + " terbang di udara.");
+    }
+}
+
+// Subclass Ikan
+class Ikan extends Hewan {
+    Ikan(String nama) {
+        super(nama);
+    }
+
+    @Override
+    void suara() {
+        System.out.println(nama + " tidak bersuara, hanya menggelembung di air.");
+    }
+
+    @Override
+    void bergerak() {
+        System.out.println(nama + " berenang di air.");
+    }
+}
+
+// Tester (Main Class)
+public class Main {
+    public static void main(String[] args) {
+        // Array Polymorphism
+        Hewan[] daftarHewan = {
+            new Kucing("Kitty"),
+            new Burung("Cendrawasih"),
+            new Ikan("Nemo")
+        };
+
+        System.out.println("=== DEMO POLYMORPHISM HEWAN ===\n");
+
+        // Menunjukkan efek polymorphism
+        for (Hewan h : daftarHewan) {
+            System.out.println("Hewan: " + h.nama);
+            h.suara();
+            h.bergerak();
+            System.out.println();
+        }
+
+        // Demonstrasi overloading
+        System.out.println("=== DEMO OVERLOADING ===\n");
+        Kucing k = new Kucing("Tom");
+        k.makan();                       // versi tanpa parameter
+        k.makan("ikan");                 // versi dengan satu parameter
+        k.makan("ikan tuna", 2);         // versi dengan dua parameter
+    }
+}
