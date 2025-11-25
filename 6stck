@@ -1,0 +1,123 @@
+#include <iostream>
+using namespace std;
+
+const int MAX = 100;  // kapasitas array
+
+// Struktur Data KTP
+struct KTP {
+    string nama;
+    string nik;
+    string alamat;
+};
+
+// Stack untuk KTP
+struct Stack {
+    KTP data[MAX];
+    int top;
+
+    // inisialisasi
+    void init() {
+        top = -1;
+    }
+
+    // cek penuh
+    bool isFull() {
+        return top == MAX - 1;
+    }
+
+    // cek kosong
+    bool isEmpty() {
+        return top == -1;
+    }
+
+    // push data
+    void push(KTP x) {
+        if (!isFull()) {
+            data[++top] = x;
+        } else {
+            cout << "Stack penuh!\n";
+        }
+    }
+
+    // pop data
+    KTP pop() {
+        if (!isEmpty()) {
+            return data[top--];
+        } else {
+            cout << "Stack kosong!\n";
+            return KTP{"", "", ""};
+        }
+    }
+};
+
+int main() {
+    Stack undoStack, redoStack;
+    undoStack.init();
+    redoStack.init();
+
+    int pilihan;
+    do {
+        cout << "\n=== PROGRAM INPUT KTP (STACK ARRAY) ===\n";
+        cout << "1. Input Data KTP (Push)\n";
+        cout << "2. Undo (Pop)\n";
+        cout << "3. Redo\n";
+        cout << "4. Lihat Data Terakhir\n";
+        cout << "5. Keluar\n";
+        cout << "Pilih: ";
+        cin >> pilihan;
+
+        if (pilihan == 1) {
+            // Input data baru
+            KTP ktp;
+            cout << "Nama   : ";
+            cin >> ktp.nama;
+            cout << "NIK    : ";
+            cin >> ktp.nik;
+            cout << "Alamat : ";
+            cin >> ktp.alamat;
+
+            undoStack.push(ktp);
+            redoStack.init(); // reset redo jika ada input baru
+
+            cout << "Data berhasil disimpan!\n";
+        }
+
+        else if (pilihan == 2) {
+            // UNDO
+            if (!undoStack.isEmpty()) {
+                KTP undone = undoStack.pop();
+                redoStack.push(undone);
+                cout << "Undo berhasil! Data terakhir dihapus.\n";
+            } else {
+                cout << "Tidak ada data untuk di-undo.\n";
+            }
+        }
+
+        else if (pilihan == 3) {
+            // REDO
+            if (!redoStack.isEmpty()) {
+                KTP redone = redoStack.pop();
+                undoStack.push(redone);
+                cout << "Redo berhasil! Data dikembalikan.\n";
+            } else {
+                cout << "Tidak ada data untuk di-redo.\n";
+            }
+        }
+
+        else if (pilihan == 4) {
+            // Lihat data terakhir
+            if (!undoStack.isEmpty()) {
+                KTP t = undoStack.data[undoStack.top];
+                cout << "\n--- Data KTP Terakhir ---\n";
+                cout << "Nama   : " << t.nama << endl;
+                cout << "NIK    : " << t.nik << endl;
+                cout << "Alamat : " << t.alamat << endl;
+            } else {
+                cout << "Belum ada data.\n";
+            }
+        }
+
+    } while (pilihan != 5);
+
+    return 0;
+}
