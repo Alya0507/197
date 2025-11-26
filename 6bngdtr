@@ -1,0 +1,123 @@
+shape.java
+public abstract class Shape {
+    public abstract double luas();
+    public abstract double keliling();
+}
+
+square.java
+public class Square extends Shape {
+    private double sisi;
+
+    public Square(double sisi) {
+        this.sisi = sisi;
+    }
+
+    @Override
+    public double luas() {
+        return sisi * sisi;
+    }
+
+    @Override
+    public double keliling() {
+        return 4 * sisi;
+    }
+}
+
+rectangle.java
+public class Rectangle extends Shape {
+    private double panjang, lebar;
+
+    public Rectangle(double panjang, double lebar) {
+        this.panjang = panjang;
+        this.lebar = lebar;
+    }
+
+    @Override
+    public double luas() {
+        return panjang * lebar;
+    }
+
+    @Override
+    public double keliling() {
+        return 2 * (panjang + lebar);
+    }
+}
+
+circle.java
+public class Circle extends Shape {
+    private double r;
+
+    public Circle(double r) {
+        this.r = r;
+    }
+
+    @Override
+    public double luas() {
+        return 3.14 * r * r;
+    }
+
+    @Override
+    public double keliling() {
+        return 2 * 3.14 * r;
+    }
+}
+
+main.java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        int pilih;
+
+        do {
+            System.out.println("\n=== Hitung Bangun Datar ===");
+            System.out.println("1. Persegi");
+            System.out.println("2. Persegi Panjang");
+            System.out.println("3. Lingkaran");
+            System.out.println("0. Keluar");
+            System.out.print("Pilih: ");
+            pilih = input.nextInt();
+
+            Shape shape = null;
+
+            switch (pilih) {
+                case 1:
+                    System.out.print("Masukkan sisi: ");
+                    double s = input.nextDouble();
+                    shape = new Square(s);
+                    break;
+
+                case 2:
+                    System.out.print("Masukkan panjang: ");
+                    double p = input.nextDouble();
+                    System.out.print("Masukkan lebar: ");
+                    double l = input.nextDouble();
+                    shape = new Rectangle(p, l);
+                    break;
+
+                case 3:
+                    System.out.print("Masukkan jari-jari: ");
+                    double r = input.nextDouble();
+                    shape = new Circle(r);
+                    break;
+
+                case 0:
+                    System.out.println("Program selesai.");
+                    continue;
+
+                default:
+                    System.out.println("Pilihan tidak valid!");
+            }
+
+            if (shape != null) {
+                System.out.println("Luas     : " + shape.luas());
+                System.out.println("Keliling : " + shape.keliling());
+            }
+
+        } while (pilih != 0);
+
+        input.close();
+    }
+}
