@@ -1,0 +1,300 @@
+rekening. java
+public class Rekening {
+    private String noRekening;
+    private double saldo;
+
+    public Rekening(String noRekening) {
+        this.noRekening = noRekening;
+        this.saldo = 0.0;
+    }
+
+    public void deposit(double jumlah) {
+        if (jumlah > 0) {
+            saldo += jumlah;
+        } else {
+            System.out.println("Jumlah deposit tidak valid!");
+        }
+    }
+
+    public void withdraw(double jumlah) {
+        if (jumlah > 0 && jumlah <= saldo) {
+            saldo -= jumlah;
+        } else {
+            System.out.println("Saldo tidak cukup atau jumlah tidak valid!");
+        }
+    }
+
+    public String getNoRekening() {
+        return noRekening;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+}
+
+
+Nasabah.java
+public class Nasabah {
+    private String nama;
+    private String alamat;
+    private int jumlahRekening;
+    private Rekening[] rek = new Rekening[5];
+
+    public Nasabah(String nama, String alamat) {
+        this.nama = nama;
+        this.alamat = alamat;
+        this.jumlahRekening = 0;
+    }
+
+    public void bukaRekening(String noRekening) {
+        if (jumlahRekening < 5) {
+            rek[jumlahRekening] = new Rekening(noRekening);
+            jumlahRekening++;
+            System.out.println("Rekening berhasil dibuat!");
+        } else {
+            System.out.println("Maksimal rekening adalah 5!");
+        }
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public int getJumlahRekening() {
+        return jumlahRekening;
+    }
+
+    public Rekening getRekening(int index) {
+        if (index >= 0 && index < jumlahRekening) {
+            return rek[index];
+        }
+        return null; // jika index tidak valid
+    }
+}
+
+
+Main.java
+public class Main {
+    public static void main(String[] args) {
+
+        // Membuat nasabah
+        Nasabah n1 = new Nasabah("Alya", "Padang");
+
+        // Membuka rekening
+        n1.bukaRekening("001");
+        n1.bukaRekening("002");
+
+        // Mengakses rekening pertama
+        Rekening r1 = n1.getRekening(0);
+
+        // Melakukan transaksi
+        r1.deposit(500000);
+        r1.withdraw(100000);
+
+        // Tampilkan informasi
+        System.out.println("\n=== DATA NASABAH ===");
+        System.out.println("Nama   : " + n1.getNama());
+        System.out.println("Alamat : " + n1.getAlamat());
+        System.out.println("Jumlah Rekening : " + n1.getJumlahRekening());
+
+        System.out.println("\n=== DATA REKENING 1 ===");
+        System.out.println("No Rekening : " + r1.getNoRekening());
+        System.out.println("Saldo       : " + r1.getSaldo());
+    }
+}
+
+
+DINAMIS
+rekening.java
+public class Rekening {
+    private String noRekening;
+    private double saldo;
+
+    public Rekening(String noRekening) {
+        this.noRekening = noRekening;
+        this.saldo = 0;
+    }
+
+    public void deposit(double jumlah) {
+        if (jumlah > 0) {
+            saldo += jumlah;
+            System.out.println("Deposit berhasil.");
+        } else {
+            System.out.println("Deposit tidak valid.");
+        }
+    }
+
+    public void withdraw(double jumlah) {
+        if (jumlah > 0 && jumlah <= saldo) {
+            saldo -= jumlah;
+            System.out.println("Withdraw berhasil.");
+        } else {
+            System.out.println("Withdraw tidak valid / saldo kurang.");
+        }
+    }
+
+    public String getNoRekening() {
+        return noRekening;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+}
+
+nasabah.java
+public class Nasabah {
+    private String nama;
+    private String alamat;
+    private int jumlahRekening;
+    private Rekening[] rek = new Rekening[5];
+
+    public Nasabah(String nama, String alamat) {
+        this.nama = nama;
+        this.alamat = alamat;
+        this.jumlahRekening = 0;
+    }
+
+    public void bukaRekening(String noRekening) {
+        if (jumlahRekening < 5) {
+            rek[jumlahRekening] = new Rekening(noRekening);
+            jumlahRekening++;
+            System.out.println("Rekening berhasil dibuat.");
+        } else {
+            System.out.println("Nasabah sudah memiliki 5 rekening!");
+        }
+    }
+
+    public Rekening getRekening(int index) {
+        if (index >= 0 && index < jumlahRekening) {
+            return rek[index];
+        } else {
+            System.out.println("Index rekening tidak valid.");
+            return null;
+        }
+    }
+
+    public void tampilkanRekening() {
+        if (jumlahRekening == 0) {
+            System.out.println("Belum ada rekening.");
+        } else {
+            for (int i = 0; i < jumlahRekening; i++) {
+                System.out.println((i+1) + ". No Rekening: " + rek[i].getNoRekening() +
+                        " | Saldo: " + rek[i].getSaldo());
+            }
+        }
+    }
+
+    public String getNama() { return nama; }
+    public String getAlamat() { return alamat; }
+    public int getJumlahRekening() { return jumlahRekening; }
+}
+
+main.java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        Nasabah nasabah = null;
+        int pilih;
+
+        do {
+            System.out.println("\n=== MENU BANK DINAMIS ===");
+            System.out.println("1. Buat Nasabah");
+            System.out.println("2. Buka Rekening Baru");
+            System.out.println("3. Deposit");
+            System.out.println("4. Withdraw");
+            System.out.println("5. Lihat Semua Rekening");
+            System.out.println("6. Keluar");
+            System.out.print("Pilih menu: ");
+            pilih = in.nextInt();
+
+            switch (pilih) {
+
+                case 1:
+                    in.nextLine();
+                    System.out.print("Masukkan nama: ");
+                    String nama = in.nextLine();
+                    System.out.print("Masukkan alamat: ");
+                    String alamat = in.nextLine();
+                    nasabah = new Nasabah(nama, alamat);
+                    System.out.println("Nasabah berhasil dibuat!");
+                    break;
+
+                case 2:
+                    if (nasabah == null) {
+                        System.out.println("Buat nasabah dulu!");
+                        break;
+                    }
+                    in.nextLine();
+                    System.out.print("Masukkan nomor rekening baru: ");
+                    String norek = in.nextLine();
+                    nasabah.bukaRekening(norek);
+                    break;
+
+                case 3:
+                    if (nasabah == null) {
+                        System.out.println("Buat nasabah dulu!");
+                        break;
+                    }
+                    nasabah.tampilkanRekening();
+                    System.out.print("Pilih rekening (index): ");
+                    int idxDep = in.nextInt() - 1;
+
+                    Rekening rDep = nasabah.getRekening(idxDep);
+                    if (rDep != null) {
+                        System.out.print("Jumlah deposit: ");
+                        double jml = in.nextDouble();
+                        rDep.deposit(jml);
+                    }
+                    break;
+
+                case 4:
+                    if (nasabah == null) {
+                        System.out.println("Buat nasabah dulu!");
+                        break;
+                    }
+                    nasabah.tampilkanRekening();
+                    System.out.print("Pilih rekening (index): ");
+                    int idxWd = in.nextInt() - 1;
+
+                    Rekening rWd = nasabah.getRekening(idxWd);
+                    if (rWd != null) {
+                        System.out.print("Jumlah withdraw: ");
+                        double jml2 = in.nextDouble();
+                        rWd.withdraw(jml2);
+                    }
+                    break;
+
+                case 5:
+                    if (nasabah == null) {
+                        System.out.println("Belum ada nasabah!");
+                    } else {
+                        System.out.println("\n=== DATA NASABAH ===");
+                        System.out.println("Nama   : " + nasabah.getNama());
+                        System.out.println("Alamat : " + nasabah.getAlamat());
+                        System.out.println("Rekening:");
+                        nasabah.tampilkanRekening();
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Program selesai.");
+                    break;
+
+                default:
+                    System.out.println("Pilihan tidak valid!");
+            }
+
+        } while (pilih != 6);
+
+        in.close();
+    }
+}
