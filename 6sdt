@@ -1,0 +1,264 @@
+#include <iostream>
+using namespace std;
+
+const int MAX = 100;  // ukuran queue
+
+struct Mahasiswa {
+    string nama;
+    string nim;
+    float ipk;
+};
+
+Mahasiswa queueData[MAX];
+int frontQ = 0;
+int rearQ = -1;
+int countQ = 0;
+
+// Mengecek apakah queue kosong
+bool isEmpty() {
+    return countQ == 0;
+}
+
+// Mengecek apakah queue penuh
+bool isFull() {
+    return countQ == MAX;
+}
+
+// Operasi enqueue (menambah data)
+void enqueue() {
+    if (isFull()) {
+        cout << "\nQueue penuh! Tidak bisa menambah data.\n";
+        return;
+    }
+
+    Mahasiswa m;
+    cout << "\nMasukkan Nama : ";
+    cin >> ws;
+    getline(cin, m.nama);
+    cout << "Masukkan NIM  : ";
+    getline(cin, m.nim);
+    cout << "Masukkan IPK  : ";
+    cin >> m.ipk;
+
+    rearQ = (rearQ + 1) % MAX;  // circular
+    queueData[rearQ] = m;
+    countQ++;
+
+    cout << "\nData berhasil ditambahkan!\n";
+}
+
+// Operasi dequeue (menghapus data)
+void dequeue() {
+    if (isEmpty()) {
+        cout << "\nQueue kosong! Tidak ada data untuk dihapus.\n";
+        return;
+    }
+
+    cout << "\nData yang dihapus:\n";
+    cout << "Nama : " << queueData[frontQ].nama << endl;
+    cout << "NIM  : " << queueData[frontQ].nim << endl;
+    cout << "IPK  : " << queueData[frontQ].ipk << endl;
+
+    frontQ = (frontQ + 1) % MAX;
+    countQ--;
+}
+
+// Menampilkan seluruh data queue
+void tampilkan() {
+    if (isEmpty()) {
+        cout << "\nQueue kosong!\n";
+        return;
+    }
+
+    cout << "\n=== Data Mahasiswa dalam Queue ===\n";
+    int idx = frontQ;
+
+    for (int i = 0; i < countQ; i++) {
+        cout << i + 1 << ". Nama: " << queueData[idx].nama
+             << " | NIM: " << queueData[idx].nim
+             << " | IPK: " << queueData[idx].ipk << endl;
+        idx = (idx + 1) % MAX;
+    }
+}
+
+int main() {
+    int pilihan;
+
+    do {
+        cout << "\n=== MENU QUEUE DATA MAHASISWA ===\n";
+        cout << "1. Enqueue (Tambah Data)\n";
+        cout << "2. Dequeue (Hapus Data)\n";
+        cout << "3. Tampilkan Data\n";
+        cout << "4. Keluar\n";
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1: enqueue(); break;
+            case 2: dequeue(); break;
+            case 3: tampilkan(); break;
+            case 4: cout << "\nProgram selesai.\n"; break;
+            default: cout << "\nPilihan tidak valid!\n";
+        }
+
+    } while (pilihan != 4);
+
+    return 0;
+}
+
+
+
+contoh 2
+#include <iostream>
+#include <stack>
+using namespace std;
+
+#define MAX_ANTRIAN 10
+#define MAX_KURSI 5
+
+class CircularQueue {
+public:
+    string data[MAX_ANTRIAN];
+    int front, rear, count;
+
+    CircularQueue() {
+        front = 0;
+        rear = -1;
+        count = 0;
+    }
+
+    bool isFull() { return count == MAX_ANTRIAN; }
+    bool isEmpty() { return count == 0; }
+
+    void enqueue(string nama) {
+        if (isFull()) {
+            cout << "Antrian penuh!\n";
+            return;
+        }
+        rear = (rear + 1) % MAX_ANTRIAN;
+        data[rear] = nama;
+        count++;
+        cout << " " << nama << "masuk antrian.\n";
+    }
+
+    string dequeue() {
+        if (isEmpty()) {
+            cout << "Antrian kosong!\n";
+            return "";
+        }
+        string nama = data[front];
+        front = (front + 1) % MAX_ANTRIAN;
+        count--;
+        return nama;
+    }
+
+    void tampil() {
+        if (isEmpty()) {
+            cout << "(Antrian kosong)\n";
+            return;
+        }
+        cout << "Antrian sekarang:\n";
+        int idx = front;
+        for (int i = 0; i < count; i++) {
+            cout << "- " << data[idx] << endl;
+            idx = (idx + 1) % MAX_ANTRIAN;
+        }
+    }
+};
+
+int main() {
+    CircularQueue antrian;
+    stack<string> riwayat;
+
+    string kursi[MAX_KURSI];
+    int kursiTerisi = 0;   
+
+    int pilihan;
+    string nama;
+
+    do {
+        cout << "\n================================\n";
+        cout << "SISTEM ANTRIAN WAHANA BIANG LALA\n";
+        cout << "================================\n";
+        cout << "1. Tambah Pengunjung ke Antrian\n";
+        cout << "2. Layani Pengunjung (Naik Kursi)\n";
+        cout << "3. Lihat Kursi Bianglala\n";
+        cout << "4. Lihat Antrian\n";
+        cout << "5. Putar Biang lala -> Turunkan Penumpang(Kosongkan Kursi + Masuk Riwayat)\n";
+        cout << "6. Lihat Riwayat Penumpang\n";
+        cout << "0. Keluar\n";
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+
+        case 1:
+            cout << "Nama pengunjung: ";
+            cin >> nama;
+            antrian.enqueue(nama);
+            break;
+
+        case 2:
+            if (kursiTerisi == MAX_KURSI) {
+                cout << "Kursi penuh! Tidak bisa naik.\n";
+            } else if (!antrian.isEmpty()) {
+                nama = antrian.dequeue();
+                kursi[kursiTerisi++] = nama;
+                cout << " " << nama << "naik ke kursi " << kursiTerisi << endl;
+            } else {
+                cout << "Tidak ada yang mengantri.\n";
+            }
+            break;
+
+        case 3:
+            cout << "\n Kondisi Kursi Bianglala:\n";
+            for (int i = 0; i < MAX_KURSI; i++) {
+                if (i < kursiTerisi)
+                    cout << "Kursi " << i+1 << ": " << kursi[i] << endl;
+                else
+                    cout << "Kursi " << i+1 << ": (kosong)\n";
+            }
+            break;
+
+        case 4:
+            antrian.tampil();
+            break;
+
+        case 5:
+            if (kursiTerisi == 0) {
+                cout << "Tidak ada penumpang di kursi.\n";
+            } else {
+                cout << "Memutar bianglala...\n";
+                for (int i = 0; i < kursiTerisi; i++) {
+                    riwayat.push(kursi[i]);
+                }
+                kursiTerisi = 0;
+                cout << "Semua kursi dikosongkan dan masuk riwayat.\n";
+            }
+            break;
+
+        case 6:
+            cout << "\nRiwayat Penumpang:\n";
+            if (riwayat.empty()) {
+                cout << "(Kosong)\n";
+            } else {
+                stack<string> temp = riwayat;
+                while (!temp.empty()) {
+                    cout << "- " << temp.top() << endl;
+                    temp.pop();
+                }
+            }
+            break;
+
+        case 0:
+            cout << "Keluar program...\n";
+            break;
+
+        default:
+            cout << "Menu tidak valid!\n";
+        }
+
+    } while (pilihan != 0);
+
+    return 0;
+}
