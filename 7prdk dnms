@@ -1,0 +1,169 @@
+product.java
+abstract class Product {
+    protected String name;
+    protected double price;
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    // abstract → wajib dioverride
+    public abstract void getDetails();   // pakai sout karena kamu minta
+}
+
+
+Book.java
+class Book extends Product {
+    private String author;
+
+    public Book(String name, String author, double price) {
+        super(name, price);
+        this.author = author;
+    }
+
+    @Override
+    public void getDetails() {
+        System.out.println("Book: " + name + 
+                           " | Author: " + author +
+                           " | Price: " + price);
+    }
+}
+
+
+FictionBook.java
+class FictionBook extends Book {
+    private String genre;
+
+    public FictionBook(String name, String author, double price, String genre) {
+        super(name, author, price);
+        this.genre = genre;
+    }
+
+    @Override
+    public void getDetails() {
+        System.out.println("Fiction Book: " + name +
+                           " | Author: " + author +
+                           " | Genre: " + genre +
+                           " | Price: " + price);
+    }
+}
+
+
+Electronic.java
+class Electronics extends Product {
+    private String brand;
+
+    public Electronics(String name, String brand, double price) {
+        super(name, price);
+        this.brand = brand;
+    }
+
+    @Override
+    public void getDetails() {
+        System.out.println("Electronics: " + name +
+                           " | Brand: " + brand +
+                           " | Price: " + price);
+    }
+}
+
+
+Clothing.java
+class Clothing extends Product {
+    private String size;
+
+    public Clothing(String name, String size, double price) {
+        super(name, price);
+        this.size = size;
+    }
+
+    @Override
+    public void getDetails() {
+        System.out.println("Clothing: " + name +
+                           " | Size: " + size +
+                           " | Price: " + price);
+    }
+}
+
+
+Main.java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int pilih;
+
+        do {
+            System.out.println("\n=== MENU PRODUK ===");
+            System.out.println("1. Book");
+            System.out.println("2. Fiction Book");
+            System.out.println("3. Electronics");
+            System.out.println("4. Clothing");
+            System.out.println("5. Keluar");
+            System.out.print("Pilih: ");
+            pilih = sc.nextInt();
+            sc.nextLine(); // buang enter
+
+            Product p = null;
+
+            switch (pilih) {
+                case 1:
+                    System.out.print("Nama Buku: ");
+                    String bn = sc.nextLine();
+                    System.out.print("Author: ");
+                    String ba = sc.nextLine();
+                    System.out.print("Harga: ");
+                    double bp = sc.nextDouble();
+                    p = new Book(bn, ba, bp);
+                    break;
+
+                case 2:
+                    System.out.print("Nama Fiction Book: ");
+                    String fn = sc.nextLine();
+                    System.out.print("Author: ");
+                    String fa = sc.nextLine();
+                    System.out.print("Genre: ");
+                    String fg = sc.nextLine();
+                    System.out.print("Harga: ");
+                    double fp = sc.nextDouble();
+                    p = new FictionBook(fn, fa, fp, fg);
+                    break;
+
+                case 3:
+                    System.out.print("Nama Elektronik: ");
+                    String en = sc.nextLine();
+                    System.out.print("Brand: ");
+                    String eb = sc.nextLine();
+                    System.out.print("Harga: ");
+                    double ep = sc.nextDouble();
+                    p = new Electronics(en, eb, ep);
+                    break;
+
+                case 4:
+                    System.out.print("Nama Pakaian: ");
+                    String cn = sc.nextLine();
+                    System.out.print("Ukuran: ");
+                    String cs = sc.nextLine();
+                    System.out.print("Harga: ");
+                    double cp = sc.nextDouble();
+                    p = new Clothing(cn, cs, cp);
+                    break;
+
+                case 5:
+                    System.out.println("Program selesai.");
+                    break;
+
+                default:
+                    System.out.println("Pilihan tidak valid!");
+            }
+
+            if (p != null) {
+                System.out.println("\n=== DETAIL PRODUK ===");
+                p.getDetails();      // pemanggilan polymorphism
+            }
+
+        } while (pilih != 5);
+    }
+}
