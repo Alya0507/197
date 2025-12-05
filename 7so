@@ -1,0 +1,88 @@
+paging
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    // Ukuran
+    int dirBits = 2;   // jumlah entri directory = 2^2 = 4
+    int tableBits = 2; // jumlah entri page table = 2^2 = 4
+    int offsetBits = 4; // offset 0-15
+
+    int directorySize = 1 << dirBits;
+    int tableSize = 1 << tableBits;
+
+    // Simulasi page directory dan page table
+    vector<vector<int>> frameTable(directorySize, vector<int>(tableSize, -1));
+
+    // Isi frame table (pemetaan page ke frame)
+    frameTable[0][0] = 5;
+    frameTable[0][1] = 7;
+    frameTable[1][0] = 3;
+    frameTable[2][2] = 8;
+
+    int logicalAddress;
+    cout << "Masukkan alamat logis (0 - 1023): ";
+    cin >> logicalAddress;
+
+    int directory = (logicalAddress >> (tableBits + offsetBits)) & ((1 << dirBits) - 1);
+    int table = (logicalAddress >> offsetBits) & ((1 << tableBits) - 1);
+    int offset = logicalAddress & ((1 << offsetBits) - 1);
+
+    cout << "Directory index : " << directory << endl;
+    cout << "Table index     : " << table << endl;
+    cout << "Offset          : " << offset << endl;
+
+    int frame = frameTable[directory][table];
+
+    if (frame == -1) {
+        cout << "Page fault! Page tidak ditemukan." << endl;
+    } else {
+        int physicalAddress = (frame << offsetBits) | offset;
+        cout << "Frame yang digunakan : " << frame << endl;
+        cout << "Alamat fisik         : " << physicalAddress << endl;
+    }
+
+    return 0;
+}
+
+
+segmentasi 
+#include <iostream>
+using namespace std;
+
+struct Segment {
+    int base;
+    int limit;
+};
+
+int main() {
+    const int numSegments = 3;
+    Segment seg[numSegments];
+
+    // Isi segmen (base dan limit)
+    seg[0] = {100, 50};  // segmen 0 mulai di alamat 100, panjang 50
+    seg[1] = {200, 80};  // segmen 1
+    seg[2] = {400, 120}; // segmen 2
+
+    int s, offset;
+    cout << "Masukkan nomor segmen (0-2): ";
+    cin >> s;
+    cout << "Masukkan offset: ";
+    cin >> offset;
+
+    if (s < 0 || s >= numSegments) {
+        cout << "Segmen tidak valid!" << endl;
+        return 0;
+    }
+
+    if (offset >= seg[s].limit) {
+        cout << "Error: Offset melebihi batas segmen." << endl;
+        return 0;
+    }
+
+    int physicalAddress = seg[s].base + offset;
+    cout << "Alamat fisik = " << physicalAddress << endl;
+
+    return 0;
+}
