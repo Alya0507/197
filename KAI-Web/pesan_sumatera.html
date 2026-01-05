@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Pemesanan Tiket Sumatera</title>
+<link rel="stylesheet" href="pesan.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>PEMESANAN TIKET SUMATERA</h1>
+
+  <label>Nama Pemesan</label>
+  <input id="nama">
+
+  <label>Pilih Kereta Sumatera</label>
+  <select id="kereta">
+    <option value="">-- Pilih Kereta --</option>
+    <option value="0">1. Putri Deli - Rp 150.000</option>
+    <option value="1">2. Sri Lelawangsa - Rp 25.000</option>
+    <option value="2">3. Cut Meutia - Rp 40.000</option>
+  </select>
+
+  <label>Jumlah Tiket</label>
+  <input type="number" id="jumlah" min="1">
+
+  <button onclick="pesanSumatera()">Pesan Tiket</button>
+
+  <div id="hasil" class="hidden"></div>
+
+  <button class="back" onclick="kembali()">⬅ Kembali</button>
+</div>
+
+<script src="pesan_sumatera.js"></script>
+</body>
+</html>
