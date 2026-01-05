@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Menu Utama KAI</title>
+<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>SISTEM KAI ACCESS</h1>
+
+  <div class="menu">
+    <button onclick="window.location.href='jadwa_sumatera.html'">
+            1. Tampilkan Jadwal Kereta Sumatera</button>
+    <button onclick="window.location.href='kursi_sumatera.html'">
+            2. Pilih Kursi Sumatera</button>
+    <button onclick="window.location.href='pesan_sumatera.html'">
+            3. Pesan Tiket Sumatera</button>
+    <button onclick="window.location.href='jadwal_jawa.html'">
+            4. Tampilkan Jadwal Kereta Jawa</button>
+    <button onclick="window.location.href='kursi_jawa.html'">
+            5. Pilih Kursi Jawa</button>
+    <button onclick="window.location.href='pesan_jawa.html'">
+            6. Pesan Tiket Jawa</button>
+    <button onclick="window.location.href='riwayat.html'">
+            7. Riwayat Pembayaran</button>
+   <button onclick="undo()">8. Undo Pemesanan</button>
+   <button onclick="redo()">9. Redo Pemesanan</button>
+    <button class="keluar" onclick="logout()">0. Keluar</button>
+  </div>
+
+</div>
+<script src="undo_redo.js"></script>
+
+<script>
+function logout(){
+  alert("Logout berhasil");
+  window.location.href="index.html";
+
+}
+</script>
+
+</body>
+</html>

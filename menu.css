@@ -1,0 +1,36 @@
+body{
+  margin:0;
+  font-family:Arial;
+  background: linear-gradient(135deg,#003c8f,#001f4d);
+  color:white;
+}
+
+.container{
+  max-width:600px;
+  margin:60px auto;
+  background:#ffffff;
+  color:black;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+}
+
+.menu button{
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  border:none;
+  border-radius:8px;
+  background:#004aad;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.menu button:hover{
+  background:#00337a;
+}
+
+.keluar{
+  background:#d32f2f;
+}

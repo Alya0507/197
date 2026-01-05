@@ -1,0 +1,25 @@
+body{
+  margin:0;
+  font-family:Arial;
+  background: linear-gradient(135deg,#002f6c,#004aad);
+}
+
+.container{
+  max-width:400px;
+  margin:100px auto;
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+}
+
+button{
+  margin-top:20px;
+  width:100%;
+  padding:12px;
+  background:#4caf50;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+}

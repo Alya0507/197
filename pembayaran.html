@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Pembayaran</title>
+<link rel="stylesheet" href="pembayaran.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>KONFIRMASI PEMBAYARAN</h1>
+
+  <p>Total yang harus dibayar:</p>
+  <h2 id="total"></h2>
+
+  <label>Metode Pembayaran</label>
+  <select>
+    <option>Transfer Bank</option>
+    <option>QRIS</option>
+    <option>E-Wallet</option>
+  </select>
+
+  <button onclick="bayar()">Bayar Sekarang</button>
+</div>
+
+<script src="pembayaran.js"></script>
+</body>
+</html>

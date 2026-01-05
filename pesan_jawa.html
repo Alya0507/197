@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Pemesanan Tiket Jawa</title>
+<link rel="stylesheet" href="pesan.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>PEMESANAN TIKET JAWA</h1>
+
+  <label>Nama Pemesan</label>
+  <input id="nama">
+
+  <label>Pilih Kereta Jawa</label>
+  <select id="kereta">
+    <option value="">-- Pilih Kereta --</option>
+    <option value="0">1. Argo Bromo - Rp 750.000</option>
+    <option value="1">2. Taksaka - Rp 450.000</option>
+    <option value="2">3. Malabar - Rp 500.000</option>
+  </select>
+
+  <label>Jumlah Tiket</label>
+  <input type="number" id="jumlah" min="1">
+
+  <button onclick="pesanJawa()">Pesan Tiket</button>
+
+  <div id="hasil" class="hidden"></div>
+
+  <button class="back" onclick="kembali()">⬅ Kembali</button>
+</div>
+
+<script src="pesan_jawa.js"></script>
+</body>
+</html>
